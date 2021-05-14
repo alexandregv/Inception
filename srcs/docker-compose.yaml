@@ -1,7 +1,18 @@
 version: '3'
 
-services: []
+services:
+  mariadb:
+    build:
+      context: requirements/mariadb
+    image: mariadb
+    restart: unless-stopped
+    networks:
+      - default
+    volumes:
+      - db_data:/var/lib/mysql
 
-networks: []
+networks:
+  default:
 
-volumes: []
+volumes:
+  db_data:
