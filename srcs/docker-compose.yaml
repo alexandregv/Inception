@@ -3,7 +3,7 @@ version: '3'
 services:
   mariadb:
     build:
-      context: requirements/mariadb
+      context: images/mariadb
     image: mariadb
     restart: unless-stopped
     networks:
