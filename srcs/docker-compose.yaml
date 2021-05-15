@@ -15,15 +15,37 @@ services:
     build:
       context: images/nginx
     image: nginx
+    depends_on:
+      - wordpress
     restart: unless-stopped
     networks:
       - default
     ports:
       - '80:80'
       - '443:443'
+    volumes:
+        - wordpress_data:/var/www/wordpress:ro
+
+  wordpress:
+    build:
+      context: images/wordpress
+    image: wordpress
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+    networks:
+      - default
+    volumes:
+      - wordpress_data:/var/www/wordpress:rw
+    environment:
+      DB_HOST: mariadb
+      DB_NAME: wordpress
+      DB_USER: wordpress
+      DB_PASS: wordpress
 
 networks:
   default:
 
 volumes:
   db_data:
+  wordpress_data:

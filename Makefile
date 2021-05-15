@@ -107,7 +107,52 @@ nginx.kill:
 nginx.rm:
 	${DC} rm -f nginx
 
+nginx.rmv:
+	${DC} rm -f -v nginx
+
 nginx.down: nginx.stop nginx.rm
+
+nginx.downv: nginx.stop nginx.rmv
 
 nginx.shell:
 	${DC} exec nginx sh
+
+
+# wordpress
+wordpress.build:
+	${DC} build wordpress
+
+wordpress.logs:
+	${DC} logs wordpress
+
+wordpress.logsf:
+	${DC} logs -f wordpress
+
+wordpress.up:
+	${DC} up wordpress
+
+wordpress.upd:
+	${DC} up -d wordpress
+
+wordpress.start:
+	${DC} start wordpress
+
+wordpress.stop:
+	${DC} stop wordpress
+
+wordpress.kill:
+	${DC} kill wordpress
+
+wordpress.rm:
+	${DC} rm -f wordpress
+
+wordpress.rmv:
+	${DC} rm -f -v wordpress
+	docker volume rm wordpress_data
+
+wordpress.down: wordpress.stop wordpress.rm
+
+wordpress.downv: wordpress.stop wordpress.rmv
+
+wordpress.shell:
+	${DC} exec wordpress sh
