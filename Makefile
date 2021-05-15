@@ -77,3 +77,37 @@ mariadb.shell:
 
 mariadb.client:
 	${DC} exec mariadb mariadb --socket=/var/lib/mysql/mysql.sock
+
+
+# nginx
+nginx.build:
+	${DC} build nginx
+
+nginx.logs:
+	${DC} logs nginx
+
+nginx.logsf:
+	${DC} logs -f nginx
+
+nginx.up:
+	${DC} up nginx
+
+nginx.upd:
+	${DC} up -d nginx
+
+nginx.start:
+	${DC} start nginx
+
+nginx.stop:
+	${DC} stop nginx
+
+nginx.kill:
+	${DC} kill nginx
+
+nginx.rm:
+	${DC} rm -f nginx
+
+nginx.down: nginx.stop nginx.rm
+
+nginx.shell:
+	${DC} exec nginx sh
