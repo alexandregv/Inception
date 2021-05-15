@@ -11,6 +11,17 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
+  nginx:
+    build:
+      context: images/nginx
+    image: nginx
+    restart: unless-stopped
+    networks:
+      - default
+    ports:
+      - '80:80'
+      - '443:443'
+
 networks:
   default:
 
