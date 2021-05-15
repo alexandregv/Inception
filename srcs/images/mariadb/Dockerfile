@@ -6,6 +6,9 @@ RUN apk add mariadb mariadb-client
 
 RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 
+COPY mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
+RUN chmod 644 /etc/my.cnf.d/mariadb-server.cnf
+
 USER mysql
 
 EXPOSE 3306
