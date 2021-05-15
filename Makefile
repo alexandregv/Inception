@@ -33,6 +33,9 @@ stop:
 down:
 	${DC} down
 
+downv:
+	${DC} down -v
+
 clean:
 	${DC} down
 	if [ -n "$$(${DC} images -q)" ]; then docker image rm $$(${DC} images -q); fi
@@ -70,7 +73,12 @@ mariadb.kill:
 mariadb.rm:
 	${DC} rm -f mariadb
 
+mariadb.rmv:
+	${DC} rm -f -v mariadb
+
 mariadb.down: mariadb.stop mariadb.rm
+
+mariadb.downv: mariadb.stop mariadb.rmv
 
 mariadb.shell:
 	${DC} exec mariadb sh
