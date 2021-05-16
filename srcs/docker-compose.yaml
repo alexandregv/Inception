@@ -49,9 +49,9 @@ services:
       WP_URL: ${WP_URL:-localhost}
       WP_TITLE: ${WP_TITLE:-wordpress}
       WP_THEME: ${WP_THEME:-twentytwentyone}
-      WP_ADMIN_USER: ${WP_ADMIN_USER:-wordpress}
-      WP_ADMIN_PASS: ${WP_ADMIN_PASS:-wordpress}
       WP_ADMIN_MAIL: ${WP_ADMIN_MAIL:-admin@wordpress.com}
+      WP_ADMIN_USER: ${WP_ADMIN_USER:-wordpress}
+      WP_ADMIN_PASS: ${WP_ADMIN_PASS:-} # No default value because generated on first run if blank
 
 networks:
   default:
