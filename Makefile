@@ -76,6 +76,7 @@ mariadb.rm:
 
 mariadb.rmv:
 	${DC} rm -f -v mariadb
+	docker volume rm ${NAME}_mariadb-data || true
 
 mariadb.run: mariadb.upd mariadb.logsf
 
@@ -161,7 +162,7 @@ wordpress.rm:
 
 wordpress.rmv:
 	${DC} rm -f -v wordpress
-	docker volume rm ${NAME}_wordpress_data
+	docker volume rm ${NAME}_wordpress-data
 
 wordpress.run: wordpress.upd wordpress.logsf
 
