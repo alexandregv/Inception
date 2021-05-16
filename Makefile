@@ -6,6 +6,15 @@ all: build run
 
 run: upd logsf
 
+clean:
+	${DC} down -v
+	if [ -n "$$(${DC} images -q)" ]; then docker image rm $$(${DC} images -q); fi
+
+fclean: clean
+	sudo rm -rf /home/$$USER/data
+
+
+# global docker-compose commands
 build:
 	${DC} build
 
@@ -35,14 +44,6 @@ down:
 
 downv:
 	${DC} down -v
-
-clean:
-	${DC} down
-	if [ -n "$$(${DC} images -q)" ]; then docker image rm $$(${DC} images -q); fi
-
-fclean:
-	${DC} down -v
-	if [ -n "$$(${DC} images -q)" ]; then docker image rm $$(${DC} images -q); fi
 
 
 # mariadb
