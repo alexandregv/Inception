@@ -156,7 +156,7 @@ wordpress.rm:
 
 wordpress.rmv:
 	${DC} rm -f -v wordpress
-	docker volume rm wordpress_data
+	docker volume rm ${NAME}_wordpress_data
 
 wordpress.down: wordpress.stop wordpress.rm
 
@@ -164,3 +164,6 @@ wordpress.downv: wordpress.stop wordpress.rmv
 
 wordpress.shell:
 	${DC} exec wordpress sh
+
+wordpress.client:
+	${DC} exec wordpress sh -c "echo 'wp-cli cli info' && wp-cli cli info && echo '=> Use `wp-cli` to control this WordPress installation' && exec sh"
