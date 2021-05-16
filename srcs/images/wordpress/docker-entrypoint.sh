@@ -7,7 +7,7 @@ if wp-cli core is-installed; then
 	echo "WordPress is already installed, starting..."
 else
 	echo "WordPress is not installed, installing..."
-	wp-cli core install --url="localhost/wordpress" --title="aguiot--'s Inception" --admin_user="wordpress" --admin_password="wordpress" --admin_email="wordpress@mail.com" --skip-email
+	wp-cli core install --url="$WP_URL" --title="$WP_TITLE" --admin_user="$WP_ADMIN_USER" --admin_password="$WP_ADMIN_PASS" --admin_email="$WP_ADMIN_MAIL" --skip-email
 	wp-cli theme activate twentytwentyone
 	echo "Installation done, starting..."
 fi

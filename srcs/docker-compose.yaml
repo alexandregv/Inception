@@ -46,6 +46,11 @@ services:
       DB_NAME: ${DB_NAME:-wordpress}
       DB_USER: ${DB_USER:-wordpress}
       DB_PASS: ${DB_PASS:-wordpress}
+      WP_URL: ${WP_URL:-localhost}
+      WP_TITLE: ${WP_TITLE:-wordpress}
+      WP_ADMIN_USER: ${WP_ADMIN_USER:-wordpress}
+      WP_ADMIN_PASS: ${WP_ADMIN_PASS:-wordpress}
+      WP_ADMIN_MAIL: ${WP_ADMIN_MAIL:-admin@wordpress.com}
 
 networks:
   default:
