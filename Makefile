@@ -47,6 +47,8 @@ down:
 
 downv:
 	${DC} down -v
+	docker volume rm ${NAME}_mariadb-data || true
+	docker volume rm ${NAME}_wordpress-data || true
 
 
 # mariadb
@@ -165,7 +167,7 @@ wordpress.rm:
 
 wordpress.rmv:
 	${DC} rm -f -v wordpress
-	docker volume rm ${NAME}_wordpress-data
+	docker volume rm ${NAME}_wordpress-data || true
 
 wordpress.run: wordpress.upd wordpress.logsf
 
