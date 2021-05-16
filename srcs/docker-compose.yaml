@@ -14,6 +14,7 @@ services:
       DB_NAME: ${DB_NAME:-wordpress}
       DB_USER: ${DB_USER:-wordpress}
       DB_PASS: ${DB_PASS:-wordpress}
+      DB_ROOT_PASS: ${DB_ROOT_PASS:-toor}
 
   nginx:
     build:

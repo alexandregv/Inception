@@ -13,13 +13,13 @@ if ! mariadb-admin --socket=/var/lib/mysql/mysql.sock --wait=25 ping; then
 	exit 1
 fi
 
-# Secure root account if not already done (see https://gist.github.com/Mins/4602864#gistcomment-1299116)
+# Secure root account if not already done
 if [ ! -f /var/lib/mysql/.mariadb_secured ]; then
 	if [ -z "$DB_ROOT_PASS" ]; then
 		echo "DB_ROOT_PASS can't be blank, please provide a secure password."
 		exit 1
 	fi
-	mariadb --socket=/var/lib/mysql/mysql.sock -e "UPDATE mysql.user SET Password=PASSWORD('$DB_ROOT_PASS') WHERE User='root'"
+	mariadb --socket=/var/lib/mysql/mysql.sock -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$DB_ROOT_PASS');"
 	mariadb --socket=/var/lib/mysql/mysql.sock -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')"
 	mariadb --socket=/var/lib/mysql/mysql.sock -e "DELETE FROM mysql.user WHERE User=''"
 	mariadb --socket=/var/lib/mysql/mysql.sock -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%'"
