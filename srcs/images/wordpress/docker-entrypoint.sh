@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Wait for database
-dockerize -wait tcp://"$DB_HOST":3306
+dockerize -wait tcp://"$DB_HOST":3306 -timeout 30s
 
 if wp-cli core is-installed; then
 	echo "WordPress is already installed, starting..."
