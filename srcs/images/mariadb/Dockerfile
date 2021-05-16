@@ -10,16 +10,17 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 
 # mariadb setup
 RUN apk add mariadb mariadb-client
+RUN mkdir -p /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql
 RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 COPY mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
 RUN chmod 644 /etc/my.cnf.d/mariadb-server.cnf
 
-USER mysql
+# SQL seed template (for dockerize)
+COPY seed.sql.tmpl /seed.sql.tmpl
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
-# SQL seed template (for dockerize)
-COPY seed.sql.tmpl /seed.sql.tmpl
+USER mysql
 
 EXPOSE 3306
 

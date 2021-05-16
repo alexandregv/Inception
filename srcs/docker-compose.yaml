@@ -9,7 +9,7 @@ services:
     networks:
       - default
     volumes:
-      - db_data:/var/lib/mysql
+      - mariadb-data:/var/lib/mysql:rw
     environment:
       DB_NAME: ${DB_NAME:-wordpress}
       DB_USER: ${DB_USER:-wordpress}
@@ -28,7 +28,7 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-        - wordpress_data:/var/www/wordpress:ro
+      - wordpress-data:/var/www/wordpress:ro
 
   wordpress:
     build:
@@ -40,7 +40,7 @@ services:
     networks:
       - default
     volumes:
-      - wordpress_data:/var/www/wordpress:rw
+      - wordpress-data:/var/www/wordpress:rw
     environment:
       DB_HOST: ${DB_HOST:-mariadb}
       DB_NAME: ${DB_NAME:-wordpress}
@@ -56,5 +56,16 @@ networks:
   default:
 
 volumes:
-  db_data:
-  wordpress_data:
+  mariadb-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: "/home/$USER/data/mariadb"
+      o: bind
+
+  wordpress-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: "/home/$USER/data/wordpress"
+      o: bind
