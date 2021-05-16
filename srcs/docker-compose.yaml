@@ -10,6 +10,10 @@ services:
       - default
     volumes:
       - db_data:/var/lib/mysql
+    environment:
+      DB_NAME: ${DB_NAME:-wordpress}
+      DB_USER: ${DB_USER:-wordpress}
+      DB_PASS: ${DB_PASS:-wordpress}
 
   nginx:
     build:
@@ -38,10 +42,10 @@ services:
     volumes:
       - wordpress_data:/var/www/wordpress:rw
     environment:
-      DB_HOST: mariadb
-      DB_NAME: wordpress
-      DB_USER: wordpress
-      DB_PASS: wordpress
+      DB_HOST: ${DB_HOST:-mariadb}
+      DB_NAME: ${DB_NAME:-wordpress}
+      DB_USER: ${DB_USER:-wordpress}
+      DB_PASS: ${DB_PASS:-wordpress}
 
 networks:
   default:
