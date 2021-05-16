@@ -77,6 +77,8 @@ mariadb.rm:
 mariadb.rmv:
 	${DC} rm -f -v mariadb
 
+mariadb.run: mariadb.upd mariadb.logsf
+
 mariadb.down: mariadb.stop mariadb.rm
 
 mariadb.downv: mariadb.stop mariadb.rmv
@@ -119,6 +121,8 @@ nginx.rm:
 nginx.rmv:
 	${DC} rm -f -v nginx
 
+nginx.run: nginx.upd nginx.logsf
+
 nginx.down: nginx.stop nginx.rm
 
 nginx.downv: nginx.stop nginx.rmv
@@ -158,6 +162,8 @@ wordpress.rm:
 wordpress.rmv:
 	${DC} rm -f -v wordpress
 	docker volume rm ${NAME}_wordpress_data
+
+wordpress.run: wordpress.upd wordpress.logsf
 
 wordpress.down: wordpress.stop wordpress.rm
 
