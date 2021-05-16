@@ -166,4 +166,4 @@ wordpress.shell:
 	${DC} exec wordpress sh
 
 wordpress.client:
-	${DC} exec wordpress sh -c "echo 'wp-cli cli info' && wp-cli cli info && echo '=> Use `wp-cli` to control this WordPress installation' && exec sh"
+	@${DC} exec wordpress sh -c "echo 'wp-cli cli info' && wp-cli cli info && echo '=> Use \`wp-cli\` to control this WordPress installation' && exec sh"
