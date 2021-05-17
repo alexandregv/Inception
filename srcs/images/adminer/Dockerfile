@@ -19,8 +19,9 @@ USER adminer
 # custom adminer theme
 ADD --chown=adminer https://raw.githubusercontent.com/Niyko/Hydra-Dark-Theme-for-Adminer/master/adminer.css /var/www/adminer/adminer.css
 
-# php-fpm conf
+# copy and test php-fpm conf
 COPY www.conf /etc/php7/php-fpm.d/www.conf
+RUN php-fpm7 --test
 
 WORKDIR /var/www/adminer
 
