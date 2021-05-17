@@ -22,12 +22,12 @@ else
 	echo "Creating user 'alice'..."
 	wp-cli user create alice alice@example.com
 
-	# Activate theme if needed
-	if [ -n "$WP_THEME" ] && ! wp-cli theme is-active "$WP_THEME"; then
-		wp-cli theme activate "$WP_THEME"
-	fi
-
 	echo "Installation done, starting..."
+fi
+
+# Activate theme if needed
+if [ -n "$WP_THEME" ] && ! wp-cli theme is-active "$WP_THEME"; then
+	wp-cli theme activate "$WP_THEME"
 fi
 
 # Start php-fpm, becoming PID 1
