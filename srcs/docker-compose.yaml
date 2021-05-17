@@ -8,7 +8,7 @@ x-service-base: &service-base
 
 x-bind-mount-base: &bind-mount-base
   driver: local
-  driver_opts:
+  driver_opts: &driver_opts
     type: none
     o: bind
 
@@ -101,10 +101,12 @@ volumes:
   mariadb-data:
     <<: *bind-mount-base
     driver_opts:
+      <<: *driver_opts
       device: "/home/$USER/data/mariadb"
 
   wordpress-data:
     <<: *bind-mount-base
     driver_opts:
+      <<: *driver_opts
       device: "/home/$USER/data/wordpress"
 
