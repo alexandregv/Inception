@@ -2,10 +2,12 @@
 include srcs/.env
 export
 
+# Variables
 NAME=inception
 DC=docker-compose -f srcs/docker-compose.yaml -p ${NAME}
 
-# general 
+
+# General rules
 all: build run
 
 run: upd logsf
@@ -21,7 +23,7 @@ re:
 	fclean all
 
 
-# global docker-compose commands
+# Global docker-compose rules
 build:
 	${DC} build
 
@@ -268,6 +270,7 @@ redis.shell:
 	${DC} exec redis sh
 
 
+# PHONY
 genphony:
 	echo .PHONY: $$(grep '^.*:' Makefile | cut -d: -f1 | grep -vi phony) >> Makefile
 .PHONY: all run clean fclean re build up upd ps logs logsf start stop down downv mariadb.build mariadb.logs mariadb.logsf mariadb.up mariadb.upd mariadb.start mariadb.stop mariadb.kill mariadb.rm mariadb.rmv mariadb.run mariadb.down mariadb.downv mariadb.shell mariadb.client nginx.build nginx.logs nginx.logsf nginx.up nginx.upd nginx.start nginx.stop nginx.kill nginx.rm nginx.rmv nginx.run nginx.down nginx.downv nginx.shell wordpress.build wordpress.logs wordpress.logsf wordpress.up wordpress.upd wordpress.start wordpress.stop wordpress.kill wordpress.rm wordpress.rmv wordpress.run wordpress.down wordpress.downv wordpress.shell wordpress.client adminer.build adminer.logs adminer.logsf adminer.up adminer.upd adminer.start adminer.stop adminer.kill adminer.rm adminer.rmv adminer.run adminer.down adminer.downv adminer.shell redis.build redis.logs redis.logsf redis.up redis.upd redis.start redis.stop redis.kill redis.rm redis.rmv redis.run redis.down redis.downv redis.shell
