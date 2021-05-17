@@ -36,4 +36,4 @@ if [ -n "$WP_THEME" ] && ! wp-cli theme is-active "$WP_THEME"; then
 fi
 
 # Start php-fpm, becoming PID 1
-exec php-fpm7 -F -R
+exec php-fpm7 -F
