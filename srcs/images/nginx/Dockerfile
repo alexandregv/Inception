@@ -18,5 +18,6 @@ USER www
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY default.conf /etc/nginx/conf.d/default.conf
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
