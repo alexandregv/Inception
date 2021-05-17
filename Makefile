@@ -269,6 +269,9 @@ redis.downv: redis.stop redis.rmv
 redis.shell:
 	${DC} exec redis sh
 
+redis.client:
+	${DC} exec redis redis-cli -h $${WP_REDIS_HOST:-redis} -n $${WP_REDIS_DATABASE:-0}
+
 
 # PHONY
 genphony:
