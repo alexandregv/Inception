@@ -4,10 +4,10 @@ LABEL maintainer="aguiot--@student.42.fr"
 
 RUN apk add redis=5.0.11-r0
 
-COPY redis.conf /etc/redis/redis.conf
+COPY redis.conf /etc/redis.conf
 
 USER redis
 
 EXPOSE 6379/tcp
 
-ENTRYPOINT ["redis-server", "--protected-mode", "no"]
+ENTRYPOINT ["redis-server", "/etc/redis.conf"]
