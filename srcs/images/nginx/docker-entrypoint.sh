@@ -9,4 +9,4 @@ if [ ! -f /etc/nginx/ssl/cert.crt ] || [ ! -f /etc/nginx/ssl/private.key ]; then
 fi
 
 nginx -t -v
-nginx -g "daemon off;" $@
+exec nginx -g "daemon off;" $@
