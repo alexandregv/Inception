@@ -26,9 +26,9 @@ services:
     networks:
       - default
     ports:
-      - '80:80'
       - '443:443'
     volumes:
+      - ssl:/etc/nginx/ssl/:rw
       - wordpress-data:/var/www/wordpress:ro
 
   wordpress:
@@ -58,6 +58,8 @@ networks:
   default:
 
 volumes:
+  ssl:
+
   mariadb-data:
     driver: local
     driver_opts:

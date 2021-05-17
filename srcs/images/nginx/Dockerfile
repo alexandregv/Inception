@@ -5,12 +5,13 @@ LABEL maintainer="aguiot--@student.42.fr"
 EXPOSE 80/tcp 80/udp 443/tcp 443/udp
 
 # See https://wiki.alpinelinux.org/wiki/Nginx#Installation
-RUN apk add nginx=1.18.0-r1
+RUN apk add nginx=1.18.0-r1 openssl=1.1.1k-r0
 RUN adduser -D -g 'www' www && \
-	mkdir -p /var/www /var/run/nginx && \
+	mkdir -p /var/www /var/run/nginx /etc/nginx/ssl && \
 	chown -R www:www /var/lib/nginx && \
 	chown -R www:www /var/log/nginx && \
 	chown -R www:www /var/run/nginx && \
+	chown -R www:www /etc/nginx/ssl && \
 	chown -R www:www /var/www
 
 USER www
