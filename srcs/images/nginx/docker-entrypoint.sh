@@ -1,5 +1,7 @@
 #!/bin/sh
 
+dockerize -template /etc/nginx/conf.d/default.conf.tmpl:/etc/nginx/conf.d/default.conf
+
 if [ ! -f /etc/nginx/ssl/cert.crt ] || [ ! -f /etc/nginx/ssl/private.key ]; then
 	rm -f /etc/nginx/ssl/cert.crt /etc/nginx/ssl/private.key 
 	echo "Generating SSL certificate..."

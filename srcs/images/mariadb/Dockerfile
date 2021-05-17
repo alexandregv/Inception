@@ -22,6 +22,6 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 USER mysql
 
-EXPOSE 3306
+EXPOSE 3306/tcp
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

@@ -2,7 +2,7 @@ server {
 	listen 443 ssl;
 	listen [::]:443 ssl;
 
-	server_name aguiot--.42.fr;
+	server_name {{ .Env.DOMAIN_NAME }};
 
 	ssl_protocols TLSv1.2 TLSv1.3;
 	ssl_certificate /etc/nginx/ssl/cert.crt;
@@ -13,7 +13,7 @@ server {
 		index index.php;
 
 		location ~ \.php$ {
-              fastcgi_pass wordpress:9000;
+              fastcgi_pass {{ .Env.WP_HOST }}:9000;
               fastcgi_index index.php;
               fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
               include fastcgi_params;

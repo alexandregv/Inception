@@ -30,6 +30,9 @@ services:
     volumes:
       - ssl:/etc/nginx/ssl/:rw
       - wordpress-data:/var/www/wordpress:ro
+    environment:
+      DOMAIN_NAME: ${DOMAIN_NAME:-login.42.fr}
+      WP_HOST: ${WP_HOST:-wordpress}
 
   wordpress:
     build:
