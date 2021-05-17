@@ -25,8 +25,9 @@ USER wordpress
 # wordpress download
 RUN wp-cli core download --version=5.7.2 --path=/var/www/wordpress --locale=en_US --color
 
-# php-fpm conf
+# copy and test php-fpm conf
 COPY www.conf /etc/php7/php-fpm.d/www.conf
+RUN php-fpm7 --test
 
 # wordpress config (fetches env vars)
 COPY wp-config.php /var/www/wordpress/wp-config.php 
