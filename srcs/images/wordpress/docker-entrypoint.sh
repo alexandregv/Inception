@@ -36,10 +36,10 @@ if [ -n "$WP_THEME" ] && ! wp-cli theme is-active "$WP_THEME"; then
 fi
 
 # Test FPM configuration and exit if invalid
-if ! php-fpm7 --test; then
-	echo "FPM configuration file is invalid, exiting."
-	exit 1
-fi
+#if ! php-fpm7 --test; then
+#	echo "FPM configuration file is invalid, exiting."
+#	exit 1
+#fi
 
 # Make sure logfiles exist
 touch /var/log/php7/access.log /var/log/php7/error.log
