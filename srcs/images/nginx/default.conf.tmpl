@@ -8,6 +8,8 @@ server {
 	ssl_certificate /etc/nginx/ssl/cert.crt;
 	ssl_certificate_key /etc/nginx/ssl/private.key;
 
+	resolver 127.0.0.11;
+
 	location / {
 		root /var/www/wordpress;
 		index index.php;
