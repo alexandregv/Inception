@@ -30,9 +30,11 @@ services:
     volumes:
       - ssl:/etc/nginx/ssl/:rw
       - wordpress-data:/var/www/wordpress:ro
+      - adminer-data:/var/www/adminer:ro
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME:-login.42.fr}
       WP_HOST: ${WP_HOST:-wordpress}
+      ADMINER_HOST: ${ADMINER_HOST:-adminer}
 
   wordpress:
     build:
@@ -57,6 +59,19 @@ services:
       WP_ADMIN_USER: ${WP_ADMIN_USER:-wordpress}
       WP_ADMIN_PASS: ${WP_ADMIN_PASS:-} # No default value because generated on first run if blank
 
+  adminer:
+    build:
+      context: images/adminer
+    image: adminer
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+    networks:
+      - default
+    volumes:
+      - adminer-data:/var/www/adminer/:ro
+
+
 networks:
   default:
 
@@ -76,3 +91,5 @@ volumes:
       type: none
       device: "/home/$USER/data/wordpress"
       o: bind
+
+  adminer-data:

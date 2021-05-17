@@ -182,4 +182,45 @@ wordpress.client:
 	@${DC} exec wordpress sh -c "echo 'wp-cli cli info' && wp-cli cli info && echo '=> Use \`wp-cli\` to control this WordPress installation' && exec sh"
 
 
-.PHONY: all run clean fclean re build up upd ps logs logsf start stop down downv mariadb.build mariadb.logs mariadb.logsf mariadb.up mariadb.upd mariadb.start mariadb.stop mariadb.kill mariadb.rm mariadb.rmv mariadb.run mariadb.down mariadb.downv mariadb.shell mariadb.client nginx.build nginx.logs nginx.logsf nginx.up nginx.upd nginx.start nginx.stop nginx.kill nginx.rm nginx.rmv nginx.run nginx.down nginx.downv nginx.shell wordpress.build wordpress.logs wordpress.logsf wordpress.up wordpress.upd wordpress.start wordpress.stop wordpress.kill wordpress.rm wordpress.rmv wordpress.run wordpress.down wordpress.downv wordpress.shell wordpress.client
+# adminer
+adminer.build:
+	${DC} build adminer
+
+adminer.logs:
+	${DC} logs adminer
+
+adminer.logsf:
+	${DC} logs -f adminer
+
+adminer.up:
+	${DC} up adminer
+
+adminer.upd:
+	${DC} up -d adminer
+
+adminer.start:
+	${DC} start adminer
+
+adminer.stop:
+	${DC} stop adminer
+
+adminer.kill:
+	${DC} kill adminer
+
+adminer.rm:
+	${DC} rm -f adminer
+
+adminer.rmv:
+	${DC} rm -f -v adminer
+
+adminer.run: adminer.upd adminer.logsf
+
+adminer.down: adminer.stop adminer.rm
+
+adminer.downv: adminer.stop adminer.rmv
+
+adminer.shell:
+	${DC} exec adminer sh
+
+
+.PHONY: all run clean fclean re build up upd ps logs logsf start stop down downv mariadb.build mariadb.logs mariadb.logsf mariadb.up mariadb.upd mariadb.start mariadb.stop mariadb.kill mariadb.rm mariadb.rmv mariadb.run mariadb.down mariadb.downv mariadb.shell mariadb.client nginx.build nginx.logs nginx.logsf nginx.up nginx.upd nginx.start nginx.stop nginx.kill nginx.rm nginx.rmv nginx.run nginx.down nginx.downv nginx.shell wordpress.build wordpress.logs wordpress.logsf wordpress.up wordpress.upd wordpress.start wordpress.stop wordpress.kill wordpress.rm wordpress.rmv wordpress.run wordpress.down wordpress.downv wordpress.shell wordpress.client adminer.build adminer.logs adminer.logsf adminer.up adminer.upd adminer.start adminer.stop adminer.kill adminer.rm adminer.rmv adminer.run adminer.down adminer.downv adminer.shell
