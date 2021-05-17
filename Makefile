@@ -1,3 +1,7 @@
+# Export environment variables from .env file
+include srcs/.env
+export
+
 NAME=inception
 DC=docker-compose -f srcs/docker-compose.yaml -p ${NAME}
 
