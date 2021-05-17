@@ -59,6 +59,8 @@ services:
       WP_ADMIN_MAIL: ${WP_ADMIN_MAIL:-admin@wordpress.com}
       WP_ADMIN_USER: ${WP_ADMIN_USER:-wordpress}
       WP_ADMIN_PASS: ${WP_ADMIN_PASS:-} # No default value because generated on first run if blank
+      WP_REDIS_HOST: ${WP_REDIS_HOST:-redis}
+      WP_REDIS_DATABASE: ${WP_REDIS_DATABASE:-0}
 
   adminer:
     build:

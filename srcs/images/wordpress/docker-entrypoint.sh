@@ -16,6 +16,11 @@ else
 		wp-cli core install --url="$WP_URL" --title="$WP_TITLE" --skip-email --admin_email="$WP_ADMIN_MAIL" --admin_user="$WP_ADMIN_USER"
 	fi
 
+	echo "Installing redis-cache plugin..."
+	wp-cli plugin install redis-cache
+	wp-cli plugin activate redis-cache
+	wp-cli redis enable
+
 	# Create 2 default users (auto generated passwords)
 	echo "Creating user 'bob'..."
 	wp-cli user create bob bob@example.com --role=author
