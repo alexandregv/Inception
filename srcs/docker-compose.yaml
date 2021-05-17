@@ -1,30 +1,52 @@
 version: '3'
 
+
+x-service-base: &service-base
+  restart: unless-stopped
+  networks:
+    - default
+
+x-env-DB: &env-DB
+  DB_HOST: ${DB_HOST:-mariadb}
+  DB_NAME: ${DB_NAME:-wordpress}
+  DB_USER: ${DB_USER:-wordpress}
+  DB_PASS: ${DB_PASS:-wordpress}
+
+x-env-WP: &env-WP
+  WP_URL: ${WP_URL:-localhost}
+  WP_TITLE: ${WP_TITLE:-wordpress}
+  WP_THEME: ${WP_THEME:-twentytwentyone}
+  WP_ADMIN_MAIL: ${WP_ADMIN_MAIL:-admin@wordpress.com}
+  WP_ADMIN_USER: ${WP_ADMIN_USER:-wordpress}
+  WP_ADMIN_PASS: ${WP_ADMIN_PASS:-} # No default value because generated on first run if blank
+  WP_REDIS_HOST: ${WP_REDIS_HOST:-redis}
+  WP_REDIS_DATABASE: ${WP_REDIS_DATABASE:-0}
+
+x-bind-mount-base: &bind-mount-base
+  driver: local
+  driver_opts:
+    type: none
+    o: bind
+
+
 services:
   mariadb:
+    <<: *service-base
     build:
       context: images/mariadb
     image: mariadb
-    restart: unless-stopped
-    networks:
-      - default
     volumes:
       - mariadb-data:/var/lib/mysql:rw
     environment:
-      DB_NAME: ${DB_NAME:-wordpress}
-      DB_USER: ${DB_USER:-wordpress}
-      DB_PASS: ${DB_PASS:-wordpress}
-      DB_ROOT_PASS: ${DB_ROOT_PASS:-toor}
+      <<: *env-DB
 
   nginx:
+    <<: *service-base
     build:
       context: images/nginx
     image: nginx
     depends_on:
       - wordpress
-    restart: unless-stopped
-    networks:
-      - default
     ports:
       - '443:443'
     volumes:
@@ -37,70 +59,52 @@ services:
       ADMINER_HOST: ${ADMINER_HOST:-adminer}
 
   wordpress:
+    <<: *service-base
     build:
       context: images/wordpress
     image: wordpress
     depends_on:
       - mariadb
       - redis
-    restart: unless-stopped
-    networks:
-      - default
     volumes:
       - wordpress-data:/var/www/wordpress:rw
     environment:
-      DB_HOST: ${DB_HOST:-mariadb}
-      DB_NAME: ${DB_NAME:-wordpress}
-      DB_USER: ${DB_USER:-wordpress}
-      DB_PASS: ${DB_PASS:-wordpress}
-      WP_URL: ${WP_URL:-localhost}
-      WP_TITLE: ${WP_TITLE:-wordpress}
-      WP_THEME: ${WP_THEME:-twentytwentyone}
-      WP_ADMIN_MAIL: ${WP_ADMIN_MAIL:-admin@wordpress.com}
-      WP_ADMIN_USER: ${WP_ADMIN_USER:-wordpress}
-      WP_ADMIN_PASS: ${WP_ADMIN_PASS:-} # No default value because generated on first run if blank
-      WP_REDIS_HOST: ${WP_REDIS_HOST:-redis}
-      WP_REDIS_DATABASE: ${WP_REDIS_DATABASE:-0}
+      <<: *env-DB
+      <<: *env-WP
 
   adminer:
+    <<: *service-base
     build:
       context: images/adminer
     image: adminer
     depends_on:
       - mariadb
-    restart: unless-stopped
-    networks:
-      - default
     volumes:
       - adminer-data:/var/www/adminer/:ro
 
   redis:
+    <<: *service-base
     build:
       context: images/redis
     image: redis
-    restart: unless-stopped
-    networks:
-      - default
 
 
 networks:
   default:
 
+
 volumes:
   ssl:
 
+  adminer-data:
+
   mariadb-data:
-    driver: local
+    <<: *bind-mount-base
     driver_opts:
-      type: none
       device: "/home/$USER/data/mariadb"
-      o: bind
 
   wordpress-data:
-    driver: local
+    <<: *bind-mount-base
     driver_opts:
-      type: none
       device: "/home/$USER/data/wordpress"
-      o: bind
 
-  adminer-data:
