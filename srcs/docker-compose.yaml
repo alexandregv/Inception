@@ -6,6 +6,12 @@ x-service-base: &service-base
   networks:
     - default
 
+x-bind-mount-base: &bind-mount-base
+  driver: local
+  driver_opts:
+    type: none
+    o: bind
+
 x-env-DB: &env-DB
   DB_HOST: ${DB_HOST:-mariadb}
   DB_NAME: ${DB_NAME:-wordpress}
@@ -21,12 +27,6 @@ x-env-WP: &env-WP
   WP_ADMIN_PASS: ${WP_ADMIN_PASS:-} # No default value because generated on first run if blank
   WP_REDIS_HOST: ${WP_REDIS_HOST:-redis}
   WP_REDIS_DATABASE: ${WP_REDIS_DATABASE:-0}
-
-x-bind-mount-base: &bind-mount-base
-  driver: local
-  driver_opts:
-    type: none
-    o: bind
 
 
 services:
