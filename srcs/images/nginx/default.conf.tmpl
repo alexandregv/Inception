@@ -13,7 +13,8 @@ server {
 		index index.php;
 
 		location ~ \.php$ {
-			  fastcgi_pass {{ .Env.WP_HOST }}:9000;
+			  set $upstream_wp {{ .Env.WP_HOST }}:;
+			  fastcgi_pass $upstream_wp:9000;
 			  fastcgi_index index.php;
 			  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
 			  include fastcgi_params;
@@ -25,7 +26,8 @@ server {
 		index index.php;
 
 		location ~ \.php$ {
-			  fastcgi_pass {{ .Env.ADMINER_HOST }}:9000;
+			  set $upstream_adminer {{ .Env.ADMINER_HOST }}:;
+			  fastcgi_pass $upstream_adminer:9000;
 			  fastcgi_index index.php;
 			  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
 			  include fastcgi_params;
