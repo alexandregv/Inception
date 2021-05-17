@@ -27,4 +27,6 @@ WORKDIR /var/www/adminer
 
 EXPOSE 9000/tcp
 
-ENTRYPOINT ["php-fpm7", "-F"]
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
