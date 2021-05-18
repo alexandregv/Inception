@@ -55,6 +55,8 @@ services:
       - ssl:/etc/nginx/ssl/:rw
       - wordpress-data:/var/www/wordpress:ro
       - adminer-data:/var/www/adminer:ro
+      - goaccess-data:/var/www/goaccess:ro
+      - nginx-log:/var/log/nginx:rw
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME:-login.42.fr}
       WP_HOST: ${WP_HOST:-wordpress}
@@ -99,6 +101,17 @@ services:
     networks:
       - redis
 
+  goaccess:
+    <<: *service-base
+    build:
+      context: images/goaccess
+    image: goaccess
+    networks:
+      - nginx
+    volumes:
+      - goaccess-data:/goaccess/html:rw
+      - nginx-log:/goaccess/data:ro
+
 
 networks:
   nginx:
@@ -112,6 +125,10 @@ volumes:
   ssl:
 
   adminer-data:
+
+  goaccess-data:
+
+  nginx-log:
 
   mariadb-data:
     <<: *bind-mount-base
