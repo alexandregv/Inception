@@ -20,5 +20,5 @@ func Register(router *goyave.Router) {
 	router.Get("/", pages.Index).Name("pages.index")
 
 	// Static slides, generated with Slidev (https://sli.dev)
-	router.Static("/slides", "static/slides", false)
+	router.Static("/slides", "resources/static/slides", false)
 }

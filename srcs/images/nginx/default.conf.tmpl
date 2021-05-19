@@ -40,4 +40,8 @@ server {
 		root /var/www;
 		index index.html;
 	}
+
+	location ^~ /minisite/ {
+		proxy_pass http://minisite/;
+	}
 }

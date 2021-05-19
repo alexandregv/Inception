@@ -73,6 +73,7 @@ services:
       DOMAIN_NAME: ${DOMAIN_NAME:-login.42.fr}
       WP_HOST: ${WP_HOST:-wordpress}
       ADMINER_HOST: ${ADMINER_HOST:-adminer}
+      MINISITE_HOST: ${MINISITE_HOST:-minisite}
 
   wordpress:
     <<: *service-base
@@ -126,6 +127,7 @@ services:
 
 
   vsftpd:
+    <<: *service-base
     build:
       context: images/vsftpd
     image: vsftpd
@@ -142,6 +144,15 @@ services:
       - ssl:/ssl/:rw
     environment:
       <<: *env-FTP
+
+  minisite:
+    <<: *service-base
+    build:
+      context: images/minisite
+    image: minisite
+    restart: unless-stopped
+    networks:
+      - nginx
 
 
 networks:
