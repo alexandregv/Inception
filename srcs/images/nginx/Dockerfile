@@ -26,6 +26,8 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf.tmpl /etc/nginx/conf.d/default.conf.tmpl
 
+WORKDIR /var/www
+
 EXPOSE 443/tcp 443/udp
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

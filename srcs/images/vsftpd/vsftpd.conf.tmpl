@@ -117,10 +117,10 @@ log_ftp_protocol=YES
 
 # Passive mode configuration
 pasv_enable=Yes
-pasv_min_port=21000
-pasv_max_port=21010
+pasv_min_port={{ .Env.FTP_PASV_PORT_MIN }}
+pasv_max_port={{ .Env.FTP_PASV_PORT_MIN }}
 pasv_addr_resolve=YES
-pasv_address=aguiot--.42.fr
+pasv_address={{ .Env.FTP_HOST }}
 
 # SSL configuration
 ssl_enable=YES

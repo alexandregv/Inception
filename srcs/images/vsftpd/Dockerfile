@@ -11,20 +11,14 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 # See https://wiki.alpinelinux.org/wiki/FTP#vsftpd
 RUN apk add vsftpd=3.0.3-r6 openssl=1.1.1k-r0
 
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-
-COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
-
-RUN (echo "wordpress"; echo "wordpress") | adduser -g 'wordpress' wordpress && \
-    chmod ug-w /home/wordpress && \
-    mkdir /home/wordpress/wordpress && \
-	chown -R wordpress:wordpress /home/wordpress/wordpress && \
-    chmod ug+rw /home/wordpress/wordpress
+COPY vsftpd.conf.tmpl /etc/vsftpd/vsftpd.conf.tmpl
 
 # We use root and not vsftp user because it is strongly discouraged by the docs
 # See 'run_as_launching_user' option in man 5 vsftpd.conf (https://man.archlinux.org/man/vsftpd.conf.5)
 USER root
 
 EXPOSE 21/tcp
+
+COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
