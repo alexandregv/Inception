@@ -118,6 +118,19 @@ services:
       - nginx-log:/goaccess/data:ro
 
 
+  vsftpd:
+    build:
+      context: images/vsftpd
+    image: vsftpd
+    restart: unless-stopped
+    ports:
+      - '21:21'
+    networks:
+      - default
+    volumes:
+      - wordpress-data:/home/wordpress/wordpress:rw
+
+
 networks:
   nginx:
 
