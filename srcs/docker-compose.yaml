@@ -129,6 +129,7 @@ services:
       - default
     volumes:
       - wordpress-data:/home/wordpress/wordpress:rw
+      - ssl:/ssl/:rw
 
 
 networks:

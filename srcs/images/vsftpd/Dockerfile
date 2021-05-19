@@ -9,7 +9,7 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 # See https://wiki.alpinelinux.org/wiki/FTP#vsftpd
-RUN apk add vsftpd=3.0.3-r6
+RUN apk add vsftpd=3.0.3-r6 openssl=1.1.1k-r0
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
