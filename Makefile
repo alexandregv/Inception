@@ -98,6 +98,9 @@ mariadb.downv: mariadb.stop mariadb.rmv
 mariadb.shell:
 	${DC} exec mariadb sh
 
+mariadb.shell.root:
+	${DC} exec --user 0 mariadb sh
+
 mariadb.client:
 	${DC} exec mariadb mariadb --socket=/var/lib/mysql/mysql.sock
 
@@ -142,6 +145,9 @@ nginx.downv: nginx.stop nginx.rmv
 nginx.shell:
 	${DC} exec nginx sh
 
+nginx.shell.root:
+	${DC} exec --user 0 nginx sh
+
 
 # wordpress
 wordpress.build:
@@ -183,6 +189,9 @@ wordpress.downv: wordpress.stop wordpress.rmv
 
 wordpress.shell:
 	${DC} exec wordpress sh
+
+wordpress.shell.root:
+	${DC} exec --user 0 wordpress sh
 
 wordpress.client:
 	@${DC} exec wordpress sh -c "echo 'wp-cli cli info' && wp-cli cli info && echo '=> Use \`wp-cli\` to control this WordPress installation' && exec sh"
@@ -228,6 +237,9 @@ adminer.downv: adminer.stop adminer.rmv
 adminer.shell:
 	${DC} exec adminer sh
 
+adminer.shell.root:
+	${DC} exec --user 0 adminer sh
+
 
 # redis
 redis.build:
@@ -268,6 +280,9 @@ redis.downv: redis.stop redis.rmv
 
 redis.shell:
 	${DC} exec redis sh
+
+redis.shell.root:
+	${DC} exec --user 0 redis sh
 
 redis.client:
 	${DC} exec redis redis-cli -h $${WP_REDIS_HOST:-redis} -n $${WP_REDIS_DATABASE:-0}
@@ -314,6 +329,9 @@ goaccess.downv: goaccess.stop goaccess.rmv
 goaccess.shell:
 	${DC} exec goaccess sh
 
+goaccess.shell.root:
+	${DC} exec --user 0 goaccess sh
+
 
 # vsftpd
 vsftpd.build:
@@ -355,6 +373,10 @@ vsftpd.downv: vsftpd.stop vsftpd.rmv
 vsftpd.shell:
 	${DC} exec vsftpd sh
 
+vsftpd.shell.root:
+	${DC} exec --user 0 vsftpd sh
+
+
 # minisite
 minisite.build:
 	${DC} build minisite
@@ -395,7 +417,11 @@ minisite.downv: minisite.stop minisite.rmv
 minisite.shell:
 	${DC} exec minisite sh
 
+minisite.shell.root:
+	${DC} exec --user 0 minisite sh
+
+
 # PHONY
 genphony:
 	echo .PHONY: $$(grep -E '^[A-Za-z\.]+:[A-Za-z\. ]*$$' Makefile | cut -d: -f1 | grep -vi phony) >> Makefile
-.PHONY: all run clean fclean re build up upd ps logs logsf start stop down downv mariadb.build mariadb.logs mariadb.logsf mariadb.up mariadb.upd mariadb.start mariadb.stop mariadb.kill mariadb.rm mariadb.rmv mariadb.run mariadb.down mariadb.downv mariadb.shell mariadb.client nginx.build nginx.logs nginx.logsf nginx.up nginx.upd nginx.start nginx.stop nginx.kill nginx.rm nginx.rmv nginx.run nginx.down nginx.downv nginx.shell wordpress.build wordpress.logs wordpress.logsf wordpress.up wordpress.upd wordpress.start wordpress.stop wordpress.kill wordpress.rm wordpress.rmv wordpress.run wordpress.down wordpress.downv wordpress.shell wordpress.client adminer.build adminer.logs adminer.logsf adminer.up adminer.upd adminer.start adminer.stop adminer.kill adminer.rm adminer.rmv adminer.run adminer.down adminer.downv adminer.shell redis.build redis.logs redis.logsf redis.up redis.upd redis.start redis.stop redis.kill redis.rm redis.rmv redis.run redis.down redis.downv redis.shell redis.client goaccess.build goaccess.logs goaccess.logsf goaccess.up goaccess.upd goaccess.start goaccess.stop goaccess.kill goaccess.rm goaccess.rmv goaccess.run goaccess.down goaccess.downv goaccess.shell vsftpd.build vsftpd.logs vsftpd.logsf vsftpd.up vsftpd.upd vsftpd.start vsftpd.stop vsftpd.kill vsftpd.rm vsftpd.rmv vsftpd.run vsftpd.down vsftpd.downv vsftpd.shell minisite.build minisite.logs minisite.logsf minisite.up minisite.upd minisite.start minisite.stop minisite.kill minisite.rm minisite.rmv minisite.run minisite.down minisite.downv minisite.shell
+.PHONY: all run clean fclean re build up upd ps logs logsf start stop down downv mariadb.build mariadb.logs mariadb.logsf mariadb.up mariadb.upd mariadb.start mariadb.stop mariadb.kill mariadb.rm mariadb.rmv mariadb.run mariadb.down mariadb.downv mariadb.shell mariadb.shell.root mariadb.client nginx.build nginx.logs nginx.logsf nginx.up nginx.upd nginx.start nginx.stop nginx.kill nginx.rm nginx.rmv nginx.run nginx.down nginx.downv nginx.shell nginx.shell.root wordpress.build wordpress.logs wordpress.logsf wordpress.up wordpress.upd wordpress.start wordpress.stop wordpress.kill wordpress.rm wordpress.rmv wordpress.run wordpress.down wordpress.downv wordpress.shell wordpress.shell.root wordpress.client adminer.build adminer.logs adminer.logsf adminer.up adminer.upd adminer.start adminer.stop adminer.kill adminer.rm adminer.rmv adminer.run adminer.down adminer.downv adminer.shell adminer.shell.root redis.build redis.logs redis.logsf redis.up redis.upd redis.start redis.stop redis.kill redis.rm redis.rmv redis.run redis.down redis.downv redis.shell redis.shell.root redis.client goaccess.build goaccess.logs goaccess.logsf goaccess.up goaccess.upd goaccess.start goaccess.stop goaccess.kill goaccess.rm goaccess.rmv goaccess.run goaccess.down goaccess.downv goaccess.shell goaccess.shell.root vsftpd.build vsftpd.logs vsftpd.logsf vsftpd.up vsftpd.upd vsftpd.start vsftpd.stop vsftpd.kill vsftpd.rm vsftpd.rmv vsftpd.run vsftpd.down vsftpd.downv vsftpd.shell vsftpd.shell.root minisite.build minisite.logs minisite.logsf minisite.up minisite.upd minisite.start minisite.stop minisite.kill minisite.rm minisite.rmv minisite.run minisite.down minisite.downv minisite.shell minisite.shell.root
