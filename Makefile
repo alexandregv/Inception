@@ -355,8 +355,47 @@ vsftpd.downv: vsftpd.stop vsftpd.rmv
 vsftpd.shell:
 	${DC} exec vsftpd sh
 
+# minisite
+minisite.build:
+	${DC} build minisite
+
+minisite.logs:
+	${DC} logs minisite
+
+minisite.logsf:
+	${DC} logs -f minisite
+
+minisite.up:
+	${DC} up minisite
+
+minisite.upd:
+	${DC} up -d minisite
+
+minisite.start:
+	${DC} start minisite
+
+minisite.stop:
+	${DC} stop minisite
+
+minisite.kill:
+	${DC} kill minisite
+
+minisite.rm:
+	${DC} rm -f minisite
+
+minisite.rmv:
+	${DC} rm -f -v minisite
+
+minisite.run: minisite.upd minisite.logsf
+
+minisite.down: minisite.stop minisite.rm
+
+minisite.downv: minisite.stop minisite.rmv
+
+minisite.shell:
+	${DC} exec minisite sh
 
 # PHONY
 genphony:
 	echo .PHONY: $$(grep -E '^[A-Za-z\.]+:[A-Za-z\. ]*$$' Makefile | cut -d: -f1 | grep -vi phony) >> Makefile
-.PHONY: all run clean fclean re build up upd ps logs logsf start stop down downv mariadb.build mariadb.logs mariadb.logsf mariadb.up mariadb.upd mariadb.start mariadb.stop mariadb.kill mariadb.rm mariadb.rmv mariadb.run mariadb.down mariadb.downv mariadb.shell mariadb.client nginx.build nginx.logs nginx.logsf nginx.up nginx.upd nginx.start nginx.stop nginx.kill nginx.rm nginx.rmv nginx.run nginx.down nginx.downv nginx.shell wordpress.build wordpress.logs wordpress.logsf wordpress.up wordpress.upd wordpress.start wordpress.stop wordpress.kill wordpress.rm wordpress.rmv wordpress.run wordpress.down wordpress.downv wordpress.shell wordpress.client adminer.build adminer.logs adminer.logsf adminer.up adminer.upd adminer.start adminer.stop adminer.kill adminer.rm adminer.rmv adminer.run adminer.down adminer.downv adminer.shell redis.build redis.logs redis.logsf redis.up redis.upd redis.start redis.stop redis.kill redis.rm redis.rmv redis.run redis.down redis.downv redis.shell redis.client goaccess.build goaccess.logs goaccess.logsf goaccess.up goaccess.upd goaccess.start goaccess.stop goaccess.kill goaccess.rm goaccess.rmv goaccess.run goaccess.down goaccess.downv goaccess.shell vsftpd.build vsftpd.logs vsftpd.logsf vsftpd.up vsftpd.upd vsftpd.start vsftpd.stop vsftpd.kill vsftpd.rm vsftpd.rmv vsftpd.run vsftpd.down vsftpd.downv vsftpd.shell
+.PHONY: all run clean fclean re build up upd ps logs logsf start stop down downv mariadb.build mariadb.logs mariadb.logsf mariadb.up mariadb.upd mariadb.start mariadb.stop mariadb.kill mariadb.rm mariadb.rmv mariadb.run mariadb.down mariadb.downv mariadb.shell mariadb.client nginx.build nginx.logs nginx.logsf nginx.up nginx.upd nginx.start nginx.stop nginx.kill nginx.rm nginx.rmv nginx.run nginx.down nginx.downv nginx.shell wordpress.build wordpress.logs wordpress.logsf wordpress.up wordpress.upd wordpress.start wordpress.stop wordpress.kill wordpress.rm wordpress.rmv wordpress.run wordpress.down wordpress.downv wordpress.shell wordpress.client adminer.build adminer.logs adminer.logsf adminer.up adminer.upd adminer.start adminer.stop adminer.kill adminer.rm adminer.rmv adminer.run adminer.down adminer.downv adminer.shell redis.build redis.logs redis.logsf redis.up redis.upd redis.start redis.stop redis.kill redis.rm redis.rmv redis.run redis.down redis.downv redis.shell redis.client goaccess.build goaccess.logs goaccess.logsf goaccess.up goaccess.upd goaccess.start goaccess.stop goaccess.kill goaccess.rm goaccess.rmv goaccess.run goaccess.down goaccess.downv goaccess.shell vsftpd.build vsftpd.logs vsftpd.logsf vsftpd.up vsftpd.upd vsftpd.start vsftpd.stop vsftpd.kill vsftpd.rm vsftpd.rmv vsftpd.run vsftpd.down vsftpd.downv vsftpd.shell minisite.build minisite.logs minisite.logsf minisite.up minisite.upd minisite.start minisite.stop minisite.kill minisite.rm minisite.rmv minisite.run minisite.down minisite.downv minisite.shell
