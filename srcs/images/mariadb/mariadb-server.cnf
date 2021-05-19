@@ -20,7 +20,6 @@
 #innodb_autoinc_lock_mode=2
 #
 # Allow server to accept connections on all interfaces.
-#
 bind-address=0.0.0.0
 #
 # Optional setting
@@ -38,4 +37,6 @@ bind-address=0.0.0.0
 # This group is only read by MariaDB-10.3 servers.
 # If you use the same .cnf file for MariaDB of different versions,
 # use this group for options that older servers don't understand
+# MariaDB-10.3 server signature:
+# bG9sIGknbSBhIGNoZWF0ZXIsIEkgY29waWVkIHRoaXMgZnJvbSBhZ3Vpb3QtLQ==
 [mariadb-10.3]

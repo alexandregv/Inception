@@ -3,6 +3,8 @@ version: '3'
 
 x-service-base: &service-base
   restart: unless-stopped
+  networks: []
+  volumes: []
   logging:
     driver: "json-file"
     options:
