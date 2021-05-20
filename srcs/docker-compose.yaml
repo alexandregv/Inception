@@ -119,8 +119,6 @@ services:
     build:
       context: images/goaccess
     image: goaccess
-    networks:
-      - nginx
     volumes:
       - goaccess-data:/goaccess/html:rw
       - nginx-log:/goaccess/data:ro
