@@ -1,323 +1,200 @@
 ---
-# try also 'default' to start simple
-theme: seriph
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
-background: https://source.unsplash.com/collection/94734566/1920x1080
-# apply any windi css classes to the current slide
-class: 'text-center'
-# https://sli.dev/custom/highlighters.html
-highlighter: shiki
-# some information about the slides, markdown enabled
-info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
+layout: cover
+colorSchema: dark
+background: https://cdn-www.konbini.com/fr/files/2020/01/inception.jpg
 ---
 
-# Welcome to Slidev
+# Inception
 
-Presentation slides for developers
-
-<div class="pt-12">
-  <span @click="$slidev.nav.next" class="px-2 p-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
-    Press Space for next page <carbon:arrow-right class="inline"/>
-  </span>
-</div>
-
-<a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub"
-  class="abs-br m-6 text-xl icon-btn opacity-50 !border-none !hover:text-white">
-  <carbon-logo-github />
-</a>
-
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
+by aguiot--
 
 ---
 
-# What is Slidev?
+# What's those slides?
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
+Those slides will present you my Inception project, explain how it is structured, how to run it, and give a little explanation of each service.
 
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - theme can be shared and used with npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embedding Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export into PDF, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - anything possible on a webpage
-
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
-
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/guide/syntax#embedded-styles
--->
-
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent; 
-  -moz-text-fill-color: transparent;
-}
-</style>
+I made it with [Slidev](https://sli.dev), a cool tool to create slides with simple Markdown.  
+You can check the source by opening `minisite/resources/slides/slides.md`
 
 ---
 
-# Navigation
+# Project structure
 
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/navigation.html)
+```bash
+├── Makefile                            ├── minisite/                     ├── vsftpd/
+├── README.md                           │   ├── Dockerfile                │   ├── Dockerfile
+└── srcs/                               │   ├── README.md                 │   ├── docker-entrypoint.sh
+    ├── docker-compose.yaml             │   ├── config.json               │   └── vsftpd.conf.tmpl
+    └── images/                         │   ├── config.production.json    │
+        ├── adminer/                    │   ├── go.mod                    └── wordpress/
+        │   ├── Dockerfile              │   ├── go.sum                        ├── Dockerfile
+        │   ├── docker-entrypoint.sh    │   ├── http                          ├── docker-entrypoint.sh
+        │   └── www.conf                │   ├── main.go                       ├── wp-config.php
+        │                               │   └── resources                     └── www.conf
+        ├── goaccess/                   │
+        │   ├── Dockerfile              ├── nginx/
+        │   ├── docker-entrypoint.sh    │   ├── Dockerfile
+        │   └── goaccess.conf           │   ├── default.conf.tmpl
+        │                               │   ├── docker-entrypoint.sh
+        ├── mariadb/                    │   └── nginx.conf
+        │   ├── Dockerfile              │
+        │   ├── docker-entrypoint.sh    ├── redis/
+        │   ├── mariadb-server.cnf      │   ├── Dockerfile
+        │   └── seed.sql.tmpl           │   └── redis.conf
+        │                               │
 
-### Keyboard Shortcuts
-
-|     |     |
-| --- | --- |
-| <kbd>right</kbd> / <kbd>space</kbd>| next animation or slide |
-| <kbd>left</kbd> | previous animation or slide |
-| <kbd>up</kbd> | previous slide |
-| <kbd>down</kbd> | next slide |
-
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
----
-layout: image-right
-image: https://source.unsplash.com/collection/94734566/1920x1080
----
-
-# Code
-
-Use code snippets and get the highlighting directly!
-
-```ts {all|2|1-6|9|all}
-interface User {
-  id: number
-  firstName: string
-  lastName: string
-  role: string
-}
-
-function updateUser(id: number, update: User) {
-  const user = getUser(id)
-  const newUser = {...user, ...update}  
-  saveUser(id, newUser)
-}
 ```
 
-<arrow v-click="3" x1="400" y1="420" x2="230" y2="330" color="#564" width="3" arrowSize="1" />
+---
+
+# How to run it
+
+Pretty simple! Just run `make`.
+
+It will:
+1. Build all images
+2. Start all the containers
+3. Show all the logs
 
 ---
 
-# Components
+# More make commands
 
-<div grid="~ cols-2 gap-4">
-<div>
+Here are some useful commands. Yes my Makefile is 427 lines long.
 
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
-
----
-class: px-20
----
-
-# Themes
-
-Slidev comes with powerful theming support. Themes are able to provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="-t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/themes/use.html) and
-check out the [Awesome Themes Gallery](https://sli.dev/themes/gallery.html).
-
----
-preload: false
----
-
-# Animations
-
-Animations are powered by [@vueuse/motion](https://motion.vueuse.org/).
-
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }">
-  Slidev
-</div>
-```
-
-<div class="w-60 relative mt-6">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-square.png"
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-circle.png"
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-triangle.png"
-    />
-  </div>
-
-  <div 
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
-</div>
-
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
-</script>
-
-<div
-  v-motion
-  :initial="{ x:35, y: 40, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn More](https://sli.dev/guide/animations.html#motion)
-
-</div>
+* Start all and follow logs: `make run`
+* Start all in background: `make upd`
+* Show services and their status: `make ps`
+* Down all: `make down` (`downv` for volumes)
+* Clean all: `make clean` (`fclean` for volumes and their data)
+* Full reset: `make re`
+* Up one specific service: `make <service>.up` (`upd`for background)
+* Down one specific service: `make <service>.down` (`downv`for volumes)
+* Get logs of one specific service: `make <service>.logs` (`logsf` to follow)
+* Start shell in one specific service: `make <service>.shell` (`shell.root` to be root)
+* Start client of one specific service: `make <service>.client` (e.g redis-cli for redis)
+* Build one specific service: `make <service>.build`
 
 ---
 
-# LaTeX
+# NGINX
 
-LaTeX is supported out-of-box powered by [KaTeX](https://katex.org/).
+### Web Server and Reverse Proxy
 
-<br>
+It's the entrypoint of the stack. It accepts HTTP requests on port 443 (HTTPS), and forwards it to either php-fpm (wordpress, adminer) or the Go http server (minisite).  
+It also serves the static HTML file generated by the go-access service.
 
-Inline $\sqrt{3x-1}+(1+x)^2$
+It connectes to these services via the `nginx` network, and can read their data via the `wordpress-data`, `adminer-data` and `goaccess-data` volumes.  
+In turn, the goaccess service reads the NGINX's logs via the `nginx-log` volume. Finally, the SSL certificate is accessed with the `ssl` volume.
 
-Block
-$$
-\begin{array}{c}
+The domain name (login.42.fr) can be configured with the `DOMAIN_NAME` environment variable.
 
-\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &
-= \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
-
-\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
-
-\nabla \cdot \vec{\mathbf{B}} & = 0
-
-\end{array}
-$$
-
-<br>
-
-[Learn more](https://sli.dev/guide/syntax#latex)
+The upstreams configuration is based on a template (`default.conf.tmpl`), and parsed by [Dockerize](https://github.com/jwilder/dockerize) at runtime.  
+Check it inside the container, at `/etc/nginx/conf.d/default.conf`. (Use `make nginx.shell` to open a shell inside the container)
 
 ---
 
-# Diagrams
+# WordPress + php-fpm
 
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
+### CMS + PHP
 
-<div class="grid grid-cols-2 gap-4 pt-4 -mb-6">
+This container holds the WordPress installation, and the associated php-fpm process, which will be reached by NGINX to execute WP's php files.
 
-```mermaid {scale: 0.9}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
+It uses the `nginx` network to do so, but also the `mariadb` and `redis` networks to connect to the database and the cache store.  
+WordPress data is stored in the `wordpress-data` volume, which is also used by NGINX.
 
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
+The WordPress installation can be configured with all the `WP_*` environment variables (see `docker-compose.yaml`), as well as the database connection with the `DB_*` variables.
 
-</div>
-
-[Learn More](https://sli.dev/guide/syntax.html#diagrams)
-
+The WP CLi is installed at buildtime, but the site installation is made at runtime (because it needs infos about this specific site installation).
 
 ---
-layout: center
-class: text-center
+
+# MariaDB
+
+### Database
+
+The database is used by WordPress to store all the site content. IF you create a post or a comment, it will be stored here.
+
+It is accessed via the `mariadb` network and uses the `mariadb-data` volume to persist data.
+
+The connection informations are stored in all the `DB_*` environment variables (see `docker-compose.yaml`).
+
+The MariaDB server is installed and configured on build, and the database is initialized on the first run, using the `seed.sql.tmpl` [Dockerize](https://github.com/jwilder/dockerize) template.
+
 ---
 
-# Learn More
+# Redis
 
-[Documentations](https://sli.dev) / [GitHub Repo](https://github.com/slidevjs/slidev)
+### Cache store
+
+Redis is used as the cache store of WordPress. Its data is not persisted since it is only cache, holding user sessions and stuff like that.
+
+It only uses the `redis` network to communicate with WordPress.
+
+There is no environment variables for Redis, because it has no authentication (it's safe since it's not exposed).
+
+The installation and configuration is made on build.
+
+---
+
+# vsftpd
+
+### FTP server
+
+vsftpd (Very Secure FTP Daemon) allows to run an FTP server and to access or edit WordPress files with an user-friendly GUI client (i.e FileZilla).
+
+It exposes port `21` for initial FTP connection and ports `21000` to `21010` for Passive Mode connections.  
+The `wordpress-data` volumes allows to read/edit WP files, and the `ssl` volume allows to use the SSL certificate to encrypt the connection.
+
+The username/password and Passive Mode port range can be configured with the `FTP_*` environment variables (see `docker-compose.yaml`).
+
+The file permissions and configuration are handled at runtime. [Dockerize](https://github.com/jwilder/dockerize) is used to parse the configuration template (`vsftpd.conf.tmpl`).
+
+---
+
+# Adminer
+
+### Database web interface (+ php-fpm)
+
+This one-php-file tool allows you to administrate your database via web browser. It is exposed by NGINX on `login.42.fr/adminer`, and use php-fpm similarly to the wordpress container.
+
+It uses the `mariadb` and `nginx` networks to access the database and be reached by NGINX, which reads its data via the `adminer-data` volume.
+
+No enviroment variable are used.
+
+The installation and configuration is made at buildtime. It only consists of php-fpm's configuration file (`www.conf`) and a custom Adminer theme that I have chosen ([Hydra](https://github.com/Niyko/Hydra-Dark-Theme-for-Adminer)).
+
+---
+
+# Minisite
+
+### Mini demo site + slides
+
+A really simple static website using a Go backend and some slides written with [Slidev](https://sli.dev). Wait... Aren't we inside this right now? Is this Inception?  
+I wanted two different tools to show off Docker Multi Stage Builds, which consists of using multiple stages in our Dockerfile to compile our applicatio**s**, and then create the final stage.  
+Check it in `minisite/Dockerfile` if you are curious! (Actually you are kind of supposed to check it, if you are my evaluator)
+
+It uses the `nginx` network to be `proxy_pass`'d and has no volume since it's a static site.
+
+The only environment variable is `SLIDEV_BASE`, which allows to change the slides base path (i.e `/minisite/slides`).
+
+The Go application is built on buildtime, as well as the slides (but in a different stage!), and then we just copy the static assets to the final stage.  
+The runtime only starts the Go app and serves these static assets.
+
+---
+
+# Goaccess
+
+### Web log analyzer
+
+This final service allows you to inspect your HTTP logs, which can be really useful if you run a public site (such as a WordPress).  
+It reads your logs and then create an HTML report file. This file in then served by NGINX on `login.42.fr/goaccess`.
+
+No network is used, not even the `nginx` one, since the only requirement is the HTML report file, which is read via the `goaccess-data` volume.
+To read NGINX's logs, goaccess uses the `nginx-log` volume.
+
+There is no environment variable used.
+
+The simple configuration is added at buildtime, and the runtime only starts goaccess.
+
