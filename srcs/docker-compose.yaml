@@ -153,6 +153,8 @@ services:
     restart: unless-stopped
     networks:
       - nginx
+    environment:
+      SLIDEV_BASE: ${SLIDEV_BASE:-/minisite/slides/}
 
 
 networks:
