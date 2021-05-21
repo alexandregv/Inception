@@ -11,7 +11,7 @@
 dockerize -template /etc/vsftpd/vsftpd.conf.tmpl:/etc/vsftpd/vsftpd.conf
 
 # Create FTP user
-(echo "$FTP_USER"; echo "$FTP_PASS") | adduser -H -g "$FTP_USER" "$FTP_USER"
+(echo "$FTP_PASS"; echo "$FTP_PASS") | adduser -H -g "$FTP_USER" "$FTP_USER"
 chmod ug-w "/home/$FTP_USER"
 mkdir -p "/home/$FTP_USER/wordpress"
 chown -R "$FTP_USER:$FTP_USER" "/home/$FTP_USER/wordpress"
