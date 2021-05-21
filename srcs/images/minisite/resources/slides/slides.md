@@ -22,29 +22,31 @@ You can check the source by opening `minisite/resources/slides/slides.md`
 # Project structure
 
 ```bash
-├── Makefile                            ├── minisite/                     ├── vsftpd/
-├── README.md                           │   ├── Dockerfile                │   ├── Dockerfile
-└── srcs/                               │   ├── README.md                 │   ├── docker-entrypoint.sh
-    ├── docker-compose.yaml             │   ├── config.json               │   └── vsftpd.conf.tmpl
-    └── images/                         │   ├── config.production.json    │
-        ├── adminer/                    │   ├── go.mod                    └── wordpress/
-        │   ├── Dockerfile              │   ├── go.sum                        ├── Dockerfile
-        │   ├── docker-entrypoint.sh    │   ├── http                          ├── docker-entrypoint.sh
-        │   └── www.conf                │   ├── main.go                       ├── wp-config.php
-        │                               │   └── resources                     └── www.conf
-        ├── goaccess/                   │
-        │   ├── Dockerfile              ├── nginx/
-        │   ├── docker-entrypoint.sh    │   ├── Dockerfile
-        │   └── goaccess.conf           │   ├── default.conf.tmpl
-        │                               │   ├── docker-entrypoint.sh
-        ├── mariadb/                    │   └── nginx.conf
-        │   ├── Dockerfile              │
-        │   ├── docker-entrypoint.sh    ├── redis/
-        │   ├── mariadb-server.cnf      │   ├── Dockerfile
-        │   └── seed.sql.tmpl           │   └── redis.conf
-        │                               │
-
-```
+├── Makefile                            │                                 ├── nginx/                  
+├── README.md                           ├── mariadb/                      │   ├── Dockerfile          
+└── srcs/                               │   ├── Dockerfile                │   ├── README.md           
+    ├── docker-compose.yaml             │   ├── README.md                 │   ├── docker-entrypoint.sh
+    ├─── services/                      │   ├── docker-entrypoint.sh      │   ├── nginx.conf
+    │   ├── README.md                   │   ├── mariadb-server.cnf        │   └── proxy.conf
+    │   └── nginx/                      │   └── seed.sql.tmpl             │
+    │       └── aguiot--.42.fr          │                                 ├── redis/
+    │                                   ├── minisite/                     │   ├── Dockerfile
+    └─── images/                        │   ├── Dockerfile                │   ├── README.md
+        ├── README.md                   │   ├── README.md                 │   └── redis.conf
+        ├── adminer/                    │   ├── config.json               │
+        │   ├── Dockerfile              │   ├── config.production.json    ├── vsftpd/
+        │   ├── README.md               │   ├── go.mod                    │   ├── Dockerfile
+        │   ├── docker-entrypoint.sh    │   ├── go.sum                    │   ├── README.md
+        │   └── www.conf                │   ├── http                      │   ├── docker-entrypoint.sh
+        │                               │   ├── main.go                   │   └── vsftpd.conf.tmpl
+        ├── goaccess/                   │   └── resources/                │
+        │   ├── Dockerfile              │                                 └── wordpress/
+        │   ├── README.md                                                     ├── Dockerfile
+        │   ├── docker-entrypoint.sh                                          ├── README.md
+        │   └── goaccess.conf                                                 ├── docker-entrypoint.sh
+                                                                              ├── wp-config.php
+                                                                              └── www.conf
+```                                    
 
 ---
 
