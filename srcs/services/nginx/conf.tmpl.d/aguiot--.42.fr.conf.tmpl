@@ -42,6 +42,7 @@ server {
 	}
 
 	location ^~ /minisite/ {
-		proxy_pass http://minisite/;
+		set $upstream_minisite {{ .Env.MINISITE_HOST }};
+		proxy_pass http://$upstream_minisite/;
 	}
 }

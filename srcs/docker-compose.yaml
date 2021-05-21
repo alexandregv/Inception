@@ -69,7 +69,7 @@ services:
       - adminer-data:/var/www/adminer:ro
       - goaccess-data:/var/www/goaccess:ro
       - nginx-log:/var/log/nginx:rw
-      - ./services/nginx/default.conf.tmpl:/etc/nginx/conf.d/default.conf.tmpl:ro
+      - ./services/nginx/conf.tmpl.d/:/etc/nginx/conf.tmpl.d/:ro
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME:-login.42.fr}
       WP_HOST: ${WP_HOST:-wordpress}
