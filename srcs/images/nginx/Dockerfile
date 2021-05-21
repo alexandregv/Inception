@@ -24,6 +24,7 @@ USER www
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY proxy.conf /etc/nginx/proxy.conf
 COPY default.conf.tmpl /etc/nginx/conf.d/default.conf.tmpl
 
 WORKDIR /var/www
