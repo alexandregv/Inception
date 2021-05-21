@@ -64,7 +64,7 @@ services:
     ports:
       - '443:443'
     volumes:
-      - ssl:/etc/nginx/ssl/:rw
+      - ssl:/etc/nginx/ssl/:ro
       - wordpress-data:/var/www/wordpress:ro
       - adminer-data:/var/www/adminer:ro
       - goaccess-data:/var/www/goaccess:ro
@@ -139,7 +139,7 @@ services:
       - default
     volumes:
       - wordpress-data:/home/${FTP_USER:-wordpress}/wordpress:rw
-      - ssl:/ssl/:rw
+      - ssl:/ssl/:ro
     environment:
       <<: *env-FTP
 
@@ -164,8 +164,6 @@ networks:
 
 
 volumes:
-  ssl:
-
   adminer-data:
 
   goaccess-data:
@@ -184,3 +182,8 @@ volumes:
       <<: *driver_opts
       device: "/home/$USER/data/wordpress"
 
+  ssl:
+    <<: *bind-mount-base
+    driver_opts:
+      <<: *driver_opts
+      device: "/home/$USER/data/ssl"

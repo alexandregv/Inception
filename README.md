@@ -29,4 +29,6 @@ Basically a LEMP stack: Linux, Nginx, MariaDB, PHP. (Yes the E is for Nginx, if 
 * Get logs of one specific service: `make <service>.logs` (`logsf` to follow)
 * Start shell in one specific service: `make <service>.shell` (`shell.root` to be root)
 * Start client of one specific service: `make <service>.client` (e.g redis-cli for redis)
+* Build all: `make build`
 * Build one specific service: `make <service>.build`
+* Generate SSL certificate: `make ssl`

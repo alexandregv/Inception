@@ -8,19 +8,30 @@ DC=docker-compose -f srcs/docker-compose.yaml -p ${NAME}
 
 
 # General rules
-all: build run
+all: data build run
 
-run: upd logsf
+run: ssl upd logsf
+
+data:
+	mkdir -p "/home/$$USER/data/"
+
+ssl: data
+	if [ ! -f "/home/$$USER/data/ssl/certificate.crt" ] || [ ! -f "/home/$$USER/data/ssl/private.key" ]; then \
+		rm -f "/home/$$USER/data/ssl/cert.crt" "/home/$$USER/data/ssl/private.key"; \
+		mkdir -p "/home/$$USER/data/ssl/"; \
+		openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout "/home/$$USER/data/ssl/private.key" -out "/home/$$USER/data/ssl/certificate.crt" -subj "/CN=$$DOMAIN_NAME" -addext "subjectAltName=DNS:$$DOMAIN_NAME,DNS:$$DOMAIN_NAME"; \
+	fi
 
 clean:
 	${DC} down -v
-	if [ -n "$$(${DC} images -q)" ]; then docker image rm $$(${DC} images -q); fi
+	if [ -n "$$(${DC} images -q)" ]; then \
+		docker image rm $$(${DC} images -q); \
+	fi
 
 fclean: clean
-	sudo rm -rf /home/$$USER/data
+	sudo rm -rf /home/$$USER/data/mariadb-data /home/$$USER/data/wordpress-data /home/$$USER/data/ssl
 
-re:
-	fclean all
+re: fclean all
 
 
 # Global docker-compose rules
@@ -424,4 +435,4 @@ minisite.shell.root:
 # PHONY
 genphony:
 	echo .PHONY: $$(grep -E '^[A-Za-z\.]+:[A-Za-z\. ]*$$' Makefile | cut -d: -f1 | grep -vi phony) >> Makefile
-.PHONY: all run clean fclean re build up upd ps logs logsf start stop down downv mariadb.build mariadb.logs mariadb.logsf mariadb.up mariadb.upd mariadb.start mariadb.stop mariadb.kill mariadb.rm mariadb.rmv mariadb.run mariadb.down mariadb.downv mariadb.shell mariadb.shell.root mariadb.client nginx.build nginx.logs nginx.logsf nginx.up nginx.upd nginx.start nginx.stop nginx.kill nginx.rm nginx.rmv nginx.run nginx.down nginx.downv nginx.shell nginx.shell.root wordpress.build wordpress.logs wordpress.logsf wordpress.up wordpress.upd wordpress.start wordpress.stop wordpress.kill wordpress.rm wordpress.rmv wordpress.run wordpress.down wordpress.downv wordpress.shell wordpress.shell.root wordpress.client adminer.build adminer.logs adminer.logsf adminer.up adminer.upd adminer.start adminer.stop adminer.kill adminer.rm adminer.rmv adminer.run adminer.down adminer.downv adminer.shell adminer.shell.root redis.build redis.logs redis.logsf redis.up redis.upd redis.start redis.stop redis.kill redis.rm redis.rmv redis.run redis.down redis.downv redis.shell redis.shell.root redis.client goaccess.build goaccess.logs goaccess.logsf goaccess.up goaccess.upd goaccess.start goaccess.stop goaccess.kill goaccess.rm goaccess.rmv goaccess.run goaccess.down goaccess.downv goaccess.shell goaccess.shell.root vsftpd.build vsftpd.logs vsftpd.logsf vsftpd.up vsftpd.upd vsftpd.start vsftpd.stop vsftpd.kill vsftpd.rm vsftpd.rmv vsftpd.run vsftpd.down vsftpd.downv vsftpd.shell vsftpd.shell.root minisite.build minisite.logs minisite.logsf minisite.up minisite.upd minisite.start minisite.stop minisite.kill minisite.rm minisite.rmv minisite.run minisite.down minisite.downv minisite.shell minisite.shell.root
+.PHONY: all run ssl clean fclean re build up upd ps logs logsf start stop down downv mariadb.build mariadb.logs mariadb.logsf mariadb.up mariadb.upd mariadb.start mariadb.stop mariadb.kill mariadb.rm mariadb.rmv mariadb.run mariadb.down mariadb.downv mariadb.shell mariadb.shell.root mariadb.client nginx.build nginx.logs nginx.logsf nginx.up nginx.upd nginx.start nginx.stop nginx.kill nginx.rm nginx.rmv nginx.run nginx.down nginx.downv nginx.shell nginx.shell.root wordpress.build wordpress.logs wordpress.logsf wordpress.up wordpress.upd wordpress.start wordpress.stop wordpress.kill wordpress.rm wordpress.rmv wordpress.run wordpress.down wordpress.downv wordpress.shell wordpress.shell.root wordpress.client adminer.build adminer.logs adminer.logsf adminer.up adminer.upd adminer.start adminer.stop adminer.kill adminer.rm adminer.rmv adminer.run adminer.down adminer.downv adminer.shell adminer.shell.root redis.build redis.logs redis.logsf redis.up redis.upd redis.start redis.stop redis.kill redis.rm redis.rmv redis.run redis.down redis.downv redis.shell redis.shell.root redis.client goaccess.build goaccess.logs goaccess.logsf goaccess.up goaccess.upd goaccess.start goaccess.stop goaccess.kill goaccess.rm goaccess.rmv goaccess.run goaccess.down goaccess.downv goaccess.shell goaccess.shell.root vsftpd.build vsftpd.logs vsftpd.logsf vsftpd.up vsftpd.upd vsftpd.start vsftpd.stop vsftpd.kill vsftpd.rm vsftpd.rmv vsftpd.run vsftpd.down vsftpd.downv vsftpd.shell vsftpd.shell.root minisite.build minisite.logs minisite.logsf minisite.up minisite.upd minisite.start minisite.stop minisite.kill minisite.rm minisite.rmv minisite.run minisite.down minisite.downv minisite.shell minisite.shell.root
