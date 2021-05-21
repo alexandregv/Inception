@@ -1,6 +1,11 @@
 #!/bin/sh
 
-dockerize -template /etc/nginx/conf.d/default.conf.tmpl:/etc/nginx/conf.d/default.conf
+# Generate all config files from template files
+for f in /etc/nginx/conf.d/*.tmpl; do
+	[ -f "$f" ] || continue
+	echo "Generating '${f%.tmpl}' from '$f'..."
+	dockerize -template "$f":"${f%.tmpl}"
+done
 
 #if [ ! -f /etc/nginx/ssl/certificate.crt ] || [ ! -f /etc/nginx/ssl/private.key ]; then
 #	rm -f /etc/nginx/ssl/certificate.crt /etc/nginx/ssl/private.key 
