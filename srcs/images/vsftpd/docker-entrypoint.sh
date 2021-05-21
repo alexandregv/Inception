@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # Generate SSL cert if not already present
-#if [ ! -f /ssl/cert.crt ] || [ ! -f /ssl/private.key ]; then
-#	rm -f /ssl/cert.crt /ssl/private.key 
+#if [ ! -f /ssl/certificate.crt ] || [ ! -f /ssl/private.key ]; then
+#	rm -f /ssl/certificate.crt /ssl/private.key 
 #	echo "Generating SSL certificate..."
-#	openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout /ssl/private.key -out /ssl/cert.crt -subj "/CN=aguiot--.42.fr" -addext "subjectAltName=DNS:aguiot--.42.fr,DNS:aguiot--.42.fr"
+#	openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout /ssl/private.key -out /ssl/cert.crt -subj "/CN=$DOMAIN_NAME" -addext "subjectAltName=DNS:$DOMAIN_NAME,DNS:$DOMAIN_NAME"
 #fi
 
 # Generate vsftpd conf from template
