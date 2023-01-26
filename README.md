@@ -24,11 +24,11 @@ Basically a LEMP stack: Linux, Nginx, MariaDB, PHP. (Yes the E is for Nginx, if 
 * Down all: `make down` (`downv` for volumes)
 * Clean all: `make clean` (`fclean` for volumes and their data)
 * Full reset: `make re`
-* Up one specific service: `make <service>.up` (`upd`for background)
-* Down one specific service: `make <service>.down` (`downv`for volumes)
-* Get logs of one specific service: `make <service>.logs` (`logsf` to follow)
-* Start shell in one specific service: `make <service>.shell` (`shell.root` to be root)
-* Start client of one specific service: `make <service>.client` (e.g redis-cli for redis)
+* Up one specific service: `make <service>:up` (`upd`for background)
+* Down one specific service: `make <service>:down` (`downv`for volumes)
+* Get logs of one specific service: `make <service>:logs` (`logsf` to follow)
+* Start shell in one specific service: `make <service>:shell` (`shell.root` to be root)
+* Start client of one specific service: `make <service>:client` (e.g redis-cli for redis)
 * Build all: `make build`
-* Build one specific service: `make <service>.build`
+* Build one specific service: `make <service>:build`
 * Generate SSL certificate: `make ssl`
